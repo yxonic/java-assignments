@@ -1,6 +1,6 @@
 public class Cashier {
     public static void main(String[] args) {
-        int cost = String.parseInt(args[0]);
+        int cost = Integer.parseInt(args[0]);
         int change = 100 - cost;
         
         // can't afford if cost is larger than 100
@@ -16,20 +16,21 @@ public class Cashier {
         int[] count = new int[4];
         
         // calculate the answer
+        int x = change;
         for (int i = 0; i < 4; i++) {
-            count[i] = change / value[i];
-            change %= value[i];
+            count[i] = x / value[i];
+            x %= value[i];
         }
 
         // print the output
-        System.out.println("Your change of " + Integer.toString(change) +
+        System.out.println("Your change of " + change +
                            " cents is given as:");
         for (int i = 0; i < 4; i++) {
             if (count[i] == 1) {
-                System.out.println(count[i]);
+                System.out.print(count[i]);
                 System.out.println(" " + single_name[i]);
             } else {
-                System.out.println(count[i]);
+                System.out.print(count[i]);
                 System.out.println(" " + plurar_name[i]);
             }
         }
