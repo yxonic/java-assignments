@@ -1,4 +1,4 @@
-all: MadLib.class Cashier.class GreatCircle.class ColorConvension.class
+all: MadLib.class Cashier.class GreatCircle.class RGBtoCMYK.class
 
 MadLib.class: MadLib.java
 	javac MadLib.java
@@ -9,5 +9,5 @@ Cashier.class: Cashier.java
 GreatCircle.class: GreatCircle.java
 	javac GreatCircle.java
 
-ColorConvension.class: ColorConvension.java
-	javac ColorConvension.java
+RGBtoCMYK.class: RGBtoCMYK.java
+	javac RGBtoCMYK.java
