@@ -11,3 +11,7 @@ RandomWalkers.class: RandomWalkers.java
 
 SpecDay.class: SpecDay.java
 	javac SpecDay.java
+
+clean:
+	rm -f *.class
+	rm -f *~

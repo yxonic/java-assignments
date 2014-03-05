@@ -11,3 +11,7 @@ GreatCircle.class: GreatCircle.java
 
 RGBtoCMYK.class: RGBtoCMYK.java
 	javac RGBtoCMYK.java
+
+clean:
+	rm -f *.class
+	rm -f *~
