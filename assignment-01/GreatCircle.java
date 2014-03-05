@@ -4,6 +4,7 @@ public class GreatCircle {
         double y1 = Double.parseDouble(args[1]);
         double x2 = Double.parseDouble(args[2]);
         double y2 = Double.parseDouble(args[3]);
+
         double dist = 60 *
             Math.toDegrees(Math.acos(Math.sin(Math.toRadians(x1)) *
                                      Math.sin(Math.toRadians(x2)) +
