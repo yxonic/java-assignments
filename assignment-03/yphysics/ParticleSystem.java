@@ -33,15 +33,31 @@ public class ParticleSystem {
     }
 
     public void addParticle(Particle p) {
+        
     }
 
     public List<Particle> getAllParticles() {
     }
 
     void advance(double T, double dt) {
+        double time = 0.0;
+        while (time < T) {
+            for (Particle obj : objects)
+                for (Particle i : objects)
+                    if (i != obj)
+                        obj.addForce(Particle.gravity(obj, i));
+            for (Particle obj : objects)
+                obj.advance(dt);
+            time += dt;
+        }
     }
 
-    public void loop() {
+    public void loop(double T, double dt) {
+        while (1) {
+            advance(T, dt); 
+            for (ParticleSystemListener listener : listeners)
+                listener.onUpdate();
+        }
     }
 
     public void addListener(ParticleSystemListener listener) {

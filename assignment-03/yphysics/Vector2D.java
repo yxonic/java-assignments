@@ -22,11 +22,10 @@ package yphysics;
 /**
  * A simple 2-dimentional vector, with some common operations.
  */
-public class Vector2D {
+class Vector2D {
 
-    
     // two coordinates
-    double x, y;
+    double x = 0.0, y = 0.0;
     
     /**
      * Create a null vector
@@ -42,11 +41,36 @@ public class Vector2D {
     }
 
     /**
-     * compare two vectors
-     * @return true if two vectors identify
+     * Compare two vectors.
+     * @return True if two vectors identify.
      */
     boolean equals(Vector2D v) {
         return x == v.x && y == v.y;
+    }
+
+    /**
+     * Add a vectors to itself.
+     */
+    Vector2D add(Vector2D v) {
+        x += v.x;
+        y += v.y;
+        return this;
+    }
+
+    /**
+     * Substract by a vector.
+     */
+    Vector2D add(Vector2D v) {
+        x -= v.x;
+        y -= v.y;
+        return this;
+    }
+
+    /**
+     * Times a real number.
+     */
+    Vector2D times(double k) {
+        return new Vector2D(x * k, y * k);
     }
 
     /**
@@ -61,6 +85,13 @@ public class Vector2D {
      */
     static Vector2D substract(Vector2D v1, Vector2D v2) {
         return new Vector2D(v1.x - v2.x, v1.y - v2.y);
+    }
+
+    /**
+     * A vector times a real number.
+     */
+    static Vector2D times(Vector2D v, double k) {
+        return new Vector2D(v.x * k, v.y * k);
     }
 
     /**
