@@ -19,6 +19,7 @@
 
 package yphysics;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,15 +29,19 @@ import java.util.Map;
  */
 public class ParticleSystem<T extends Vector> {
     Map<String, Particle<T>> objects = new HashMap<String, Particle<T>>();
+    List<ParticleSystemListener> listeners =
+        new List<ParticleSystemListener>();
 
     public ParticleSystem() {
     }
 
     public void addParticle(Particle<T> p) {
-        
+        objects.put(p.getId(), p);
     }
 
     public List<Particle<T>> getAllParticles() {
+        List<Particle<T>> list = List<Particle<T>>(objects.values()))
+        return Collections.unmodifiableList(list);
     }
 
     void advance(double T, double dt) {
@@ -64,14 +69,14 @@ public class ParticleSystem<T extends Vector> {
         if (listener == null) {
             throw new IllegalArgumentException("listener is required");
         }
-        listeners.addListener(listener);
+        listeners.put(listener);
     }
 
     public void removeListener(SpringSystemListener listener) {
         if (listener == null) {
             throw new IllegalArgumentException("listener is required");
         }
-        listeners.removeListener(listener);
+        listeners.remove(listener);
     }
     
     public void removeAllListeners() {

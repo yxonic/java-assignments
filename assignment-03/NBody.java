@@ -1,7 +1,7 @@
 /**
- * @file    <file-name>
+ * @file    NBody.java
  * @author  Yin Yu <yxonic@gmail.com>
- * @version <version>
+ * @version 1.0
  *
  * @section LICENSE
  *
@@ -15,8 +15,4 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details at
  * http://www.gnu.org/copyleft/gpl.html
- *
- * @section DESCRIPTION
- *
- * <description>
  */

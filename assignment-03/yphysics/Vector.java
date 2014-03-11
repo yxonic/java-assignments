@@ -17,6 +17,8 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
+package yphysics;
+
 public interface Vector {
     double length();
     void copy(Vector);

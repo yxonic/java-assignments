@@ -43,6 +43,10 @@ public class Particle<T extends Vector> {
         acceleration = new T();
     }
 
+    public String getId() {
+        return name;
+    }
+
     /**
      * Get the current position.
      */
