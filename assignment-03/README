@@ -8,8 +8,8 @@ TEXT EDITOR:    Emacs
 实现作业的要求本来不必这么复杂，简单的版本可能一个小时就写好了，但为了
 提升Java水平，我花时间实现了一个相对比较复杂的库.
 
-程序代码中包含Doxygen风格的注释，NBody.java则可以作为使用yphysics库的一
-个demo. 更详细的文档已经没有精力写了.
+程序代码中包含javadoc风格的注释文档，NBody.java则可以作为使用yphysics库
+的一个demo. 更详细的文档已经没有精力写了.
 
 类库的设计很大程度上参考了Facebook的Rebound库
 <https://github.com/facebook/rebound/>. 在此声明.
