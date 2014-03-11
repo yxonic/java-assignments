@@ -22,7 +22,7 @@ package yphysics;
 /**
  * A simple 2-dimentional vector, with some common operations.
  */
-class Vector2D {
+class Vector2D implements Vector {
 
     // two coordinates
     double x = 0.0, y = 0.0;
@@ -34,10 +34,14 @@ class Vector2D {
     }
 
     /**
-     * Create a vector with given coodinates
+     * @return The length of this vector.
      */
-    Vector2D(double x, double y) {
-        this.x = x; this.y = y;
+    double length() {
+        return Math.sqrt(x * x + y * y);
+    }
+
+    void copy(Vector2D v) {
+        x = v.x; y = v.y;
     }
 
     /**
@@ -60,7 +64,7 @@ class Vector2D {
     /**
      * Substract by a vector.
      */
-    Vector2D add(Vector2D v) {
+    Vector2D substract(Vector2D v) {
         x -= v.x;
         y -= v.y;
         return this;
@@ -109,10 +113,4 @@ class Vector2D {
         return substract(v1, v2).length();
     }
 
-    /**
-     * @return The length of this vector.
-     */
-    double length() {
-        return Math.sqrt(x * x + y * y);
-    }
 }

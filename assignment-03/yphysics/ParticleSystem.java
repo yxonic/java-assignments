@@ -26,27 +26,27 @@ import java.util.Map;
 /**
  * Particle system simulation.
  */
-public class ParticleSystem {
-    Map<String, Particle> objects = new HashMap<String, Particle>();
+public class ParticleSystem<T extends Vector> {
+    Map<String, Particle<T>> objects = new HashMap<String, Particle<T>>();
 
     public ParticleSystem() {
     }
 
-    public void addParticle(Particle p) {
+    public void addParticle(Particle<T> p) {
         
     }
 
-    public List<Particle> getAllParticles() {
+    public List<Particle<T>> getAllParticles() {
     }
 
     void advance(double T, double dt) {
         double time = 0.0;
         while (time < T) {
-            for (Particle obj : objects)
-                for (Particle i : objects)
+            for (Particle<T> obj : objects)
+                for (Particle<T> i : objects)
                     if (i != obj)
                         obj.addForce(Particle.gravity(obj, i));
-            for (Particle obj : objects)
+            for (Particle<T> obj : objects)
                 obj.advance(dt);
             time += dt;
         }
