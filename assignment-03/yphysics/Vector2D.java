@@ -22,7 +22,7 @@ package yphysics;
 /**
  * A simple 2-dimentional vector, with some common operations.
  */
-class Vector2D implements Vector {
+class Vector2D extends Vector {
 
     // two coordinates
     double x = 0.0, y = 0.0;
@@ -32,15 +32,19 @@ class Vector2D implements Vector {
      */
     Vector2D() {
     }
+    
+    Vector2D(double x, double y) {
+        this.x = x; this.y = y;
+    }
 
     /**
      * @return The length of this vector.
      */
-    double length() {
+    public double length() {
         return Math.sqrt(x * x + y * y);
     }
 
-    void copy(Vector2D v) {
+    public void copy(Vector2D v) {
         x = v.x; y = v.y;
     }
 
@@ -48,14 +52,14 @@ class Vector2D implements Vector {
      * Compare two vectors.
      * @return True if two vectors identify.
      */
-    boolean equals(Vector2D v) {
+    public boolean equals(Vector2D v) {
         return x == v.x && y == v.y;
     }
 
     /**
      * Add a vectors to itself.
      */
-    Vector2D add(Vector2D v) {
+    public Vector2D add(Vector2D v) {
         x += v.x;
         y += v.y;
         return this;
@@ -64,7 +68,7 @@ class Vector2D implements Vector {
     /**
      * Substract by a vector.
      */
-    Vector2D substract(Vector2D v) {
+    public Vector2D substract(Vector2D v) {
         x -= v.x;
         y -= v.y;
         return this;
@@ -73,8 +77,12 @@ class Vector2D implements Vector {
     /**
      * Times a real number.
      */
-    Vector2D times(double k) {
+    public Vector2D times(double k) {
         return new Vector2D(x * k, y * k);
+    }
+
+    public static Vector2D nullVector() {
+        return new Vector2D();
     }
 
     /**

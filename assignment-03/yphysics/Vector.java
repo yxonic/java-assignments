@@ -19,16 +19,32 @@
 
 package yphysics;
 
-public interface Vector {
-    double length();
-    void copy(Vector);
-    boolean equals(Vector);
-    Vector add(Vector);
-    Vector substract(Vector);
-    Vector times(Vector);
-    static Vector add(Vector, Vector);
-    static Vector substract(Vector, Vector);
-    static Vector times(Vector, double);
-    static double dot(Vector, Vector);
-    static double distance(Vector, Vector);
+public class Vector {
+    double x;
+    public Vector() { this.x = 0.0; }
+    public Vector(double x) { this.x = x; }
+    public double length() { return Math.abs(x); }
+    public void copy(Vector v) { x = v.x; }
+    public boolean equals(Vector v) { return x == v.x; }
+    public Vector add(Vector v) { x += v.x; return this; }
+    public Vector substract(Vector v) { x -= v.x; return this; }
+    public Vector times(double k) { x *= k; return this; }
+    public static Vector nullVector() {
+        return new Vector();
+    }
+    public static Vector add(Vector v1, Vector v2) {
+        return new Vector(v1.x + v2.x);
+    }
+    public static Vector substract(Vector v1, Vector v2) {
+        return new Vector(v1.x - v2.x);
+    }
+    public static Vector times(Vector v, double k) {
+        return new Vector(v.x * k);
+    }
+    public static double dot(Vector v1, Vector v2) {
+        return v1.x * v2.x;
+    }
+    public static double distance(Vector v1, Vector v2) {
+        return Math.abs(v1.x - v2.x);
+    }
 }

@@ -22,27 +22,25 @@ package yphysics;
 /**
  * Simple mass point model for a real-world object.
  */
-public class Particle<T extends Vector> {
+public class Particle {
 
     // constant G under MKS
-    final double G = 9.80665;
+    static final double G = 9.80665;
 
-    T position, velocity, acceleration;
+    Vector position, velocity, acceleration;
     double mass;
     String name;
 
-    public Particle() {
-        position = new T();
-        velocity = new T();
-        acceleration = new T();
-    }
-
-    public Particle(T r, T v) {
+    public Particle(Vector r, Vector v, String n) {
         position = r;
         velocity = v;
-        acceleration = new T();
+        acceleration = Vector.nullVector();
+        name = n;
     }
 
+    /**
+     * @return Vectorhe unique name of this particle.
+     */
     public String getId() {
         return name;
     }
@@ -50,8 +48,8 @@ public class Particle<T extends Vector> {
     /**
      * Get the current position.
      */
-    public T getPosition() {
-        T pos = new T();
+    public Vector getPosition() {
+        Vector pos = Vector.nullVector();
         pos.copy(position);
         return pos;
     }
@@ -59,8 +57,8 @@ public class Particle<T extends Vector> {
     /**
      * Add a force and calculate the acceleration.
      */
-    void addForce(T f) {
-        acceleration.add(times(f, 1 / mass));
+    void addForce(Vector f) {
+        acceleration.add(Vector.times(f, 1 / mass));
     }
 
     /**
@@ -68,22 +66,21 @@ public class Particle<T extends Vector> {
      */
     void advance(double dt) {
         // calculate next position and velocity
-        position.add(T.times(velocity, dt));
-        velocity.add(T.times(acceleration, dt));
+        position.add(Vector.times(velocity, dt));
+        velocity.add(Vector.times(acceleration, dt));
 
         // clear acceleration for next calculation
-        acceleration.x = 0.0;
-        acceleration.y = 0.0;
+        acceleration = acceleration.nullVector();
     }
 
     /**
      * Calculates the gravity between two particles.
      * @return A vector that points to the second given paritcle.
      */
-    public static T gravity(Particle a, Particle b) {
-        double d = T.distance(a.position, b.position);
+    public static Vector gravity(Particle a, Particle b) {
+        double d = Vector.distance(a.position, b.position);
         double force = G * a.mass * b.mass / d;
-        T dir = T.substract(b, a);
+        Vector dir = Vector.substract(b.getPosition(), a.getPosition());
         return dir.times(force / d);
     }
 }

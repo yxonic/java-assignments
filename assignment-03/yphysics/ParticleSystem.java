@@ -19,6 +19,7 @@
 
 package yphysics;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -27,38 +28,38 @@ import java.util.Map;
 /**
  * Particle system simulation.
  */
-public class ParticleSystem<T extends Vector> {
-    Map<String, Particle<T>> objects = new HashMap<String, Particle<T>>();
+public class ParticleSystem {
+    Map<String, Particle> objects = new HashMap<String, Particle>();
     List<ParticleSystemListener> listeners =
-        new List<ParticleSystemListener>();
+        new ArrayList<ParticleSystemListener>();
 
-    public ParticleSystem() {
-    }
-
-    public void addParticle(Particle<T> p) {
+    public void addParticle(Particle p) {
         objects.put(p.getId(), p);
     }
 
-    public List<Particle<T>> getAllParticles() {
-        List<Particle<T>> list = List<Particle<T>>(objects.values()))
+    public List<Particle> getAllParticles() {
+        List<Particle> list = new ArrayList<Particle>(objects.values());
         return Collections.unmodifiableList(list);
     }
 
     void advance(double T, double dt) {
         double time = 0.0;
         while (time < T) {
-            for (Particle<T> obj : objects)
-                for (Particle<T> i : objects)
-                    if (i != obj)
-                        obj.addForce(Particle.gravity(obj, i));
-            for (Particle<T> obj : objects)
-                obj.advance(dt);
+            for (String obj : objects.keySet())
+                for (String i : objects.keySet())
+                    if (i != obj) {
+                        Particle p1 = objects.get(obj);
+                        Particle p2 = objects.get(i);
+                        p1.addForce(Particle.gravity(p1, p2));
+                    }
+            for (Map.Entry<String, Particle>entry : objects.entrySet())
+                entry.getValue().advance(dt);
             time += dt;
         }
     }
 
     public void loop(double T, double dt) {
-        while (1) {
+        while (true) {
             advance(T, dt); 
             for (ParticleSystemListener listener : listeners)
                 listener.onUpdate();
@@ -69,17 +70,14 @@ public class ParticleSystem<T extends Vector> {
         if (listener == null) {
             throw new IllegalArgumentException("listener is required");
         }
-        listeners.put(listener);
+        listeners.add(listener);
     }
 
-    public void removeListener(SpringSystemListener listener) {
+    public void removeListener(ParticleSystemListener listener) {
         if (listener == null) {
             throw new IllegalArgumentException("listener is required");
         }
-        listeners.remove(listener);
+        listeners.remove(listeners.indexOf(listener));
     }
-    
-    public void removeAllListeners() {
-        listeners.clear();
-    }
+
 }

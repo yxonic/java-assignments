@@ -17,9 +17,10 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
+package yphysics;
+
 public interface ParticleSystemListener {
     
-    void onUpdate() {
-    }
+    void onUpdate();
 
 }
