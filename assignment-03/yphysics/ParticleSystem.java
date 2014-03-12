@@ -46,12 +46,12 @@ public class ParticleSystem {
         double time = 0.0;
         while (time < T) {
             for (String obj : objects.keySet())
-                for (String i : objects.keySet())
-                    if (i != obj) {
-                        Particle p1 = objects.get(obj);
-                        Particle p2 = objects.get(i);
+                for (String i : objects.keySet()) {
+                    Particle p1 = objects.get(obj);
+                    Particle p2 = objects.get(i);
+                    if (!p1.position.equals(p2.position))
                         p1.addForce(Particle.gravity(p1, p2));
-                    }
+                }
             for (Map.Entry<String, Particle>entry : objects.entrySet())
                 entry.getValue().advance(dt);
             time += dt;

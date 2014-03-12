@@ -20,7 +20,7 @@
 package yphysics;
 
 public class Vector {
-    double x;
+    public double x;
     public Vector() { this.x = 0.0; }
     public Vector(double x) { this.x = x; }
     public double length() { return Math.abs(x); }

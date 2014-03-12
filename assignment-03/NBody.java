@@ -16,3 +16,32 @@
  * General Public License for more details at
  * http://www.gnu.org/copyleft/gpl.html
  */
+
+import yphysics.*;
+
+
+public class NBody {
+    static Vector2D p = new Vector2D();
+    static Vector2D v = new Vector2D();
+    static Vector2D p2 = new Vector2D(1.5e11, 0.0);
+    static Vector2D v2 = new Vector2D(0.0, 3e4);
+    static Particle pt = new Particle(p, v, 2e30, "pt1");
+    static Particle pt2 = new Particle(p2, v2, 6e24, "pt2");
+    static ParticleSystem ps = new ParticleSystem();
+
+    static class Listener implements ParticleSystemListener {
+        public void onUpdate() {
+            System.out.println("Hit!");
+            System.out.println(pt2.getPosition().x);
+        }
+    }
+
+
+    public static void main(String[] args) {
+        ps.addParticle(pt);
+        ps.addParticle(pt2);
+        Listener ls = new Listener();
+        ps.addListener(ls);
+        ps.loop(157788000000.0, 100000);
+    }
+}

@@ -25,16 +25,17 @@ package yphysics;
 public class Particle {
 
     // constant G under MKS
-    static final double G = 9.80665;
+    static final double G = 6.6732e-11;
 
     Vector position, velocity, acceleration;
     double mass;
     String name;
 
-    public Particle(Vector r, Vector v, String n) {
+    public Particle(Vector r, Vector v, double m, String n) {
         position = r;
         velocity = v;
         acceleration = Vector.nullVector();
+        mass = m;
         name = n;
     }
 
@@ -49,16 +50,14 @@ public class Particle {
      * Get the current position.
      */
     public Vector getPosition() {
-        Vector pos = Vector.nullVector();
-        pos.copy(position);
-        return pos;
+        return position;
     }
     
     /**
      * Add a force and calculate the acceleration.
      */
     void addForce(Vector f) {
-        acceleration.add(Vector.times(f, 1 / mass));
+        acceleration.add(f.times(f, 1 / mass));
     }
 
     /**
@@ -77,8 +76,9 @@ public class Particle {
      * Calculates the gravity between two particles.
      * @return A vector that points to the second given paritcle.
      */
-    public static Vector gravity(Particle a, Particle b) {
-        double d = Vector.distance(a.position, b.position);
+    public static Vector gravity(Particle a, Particle b){
+        double d = a.position.distance(a.position, b.position);
+        if (d == 0) throw new IllegalArgumentException("duck!");
         double force = G * a.mass * b.mass / d;
         Vector dir = Vector.substract(b.getPosition(), a.getPosition());
         return dir.times(force / d);

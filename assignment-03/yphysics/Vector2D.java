@@ -22,18 +22,18 @@ package yphysics;
 /**
  * A simple 2-dimentional vector, with some common operations.
  */
-class Vector2D extends Vector {
+public class Vector2D extends Vector {
 
     // two coordinates
-    double x = 0.0, y = 0.0;
+    public double x = 0.0, y = 0.0;
     
     /**
      * Create a null vector
      */
-    Vector2D() {
+    public Vector2D() {
     }
     
-    Vector2D(double x, double y) {
+    public Vector2D(double x, double y) {
         this.x = x; this.y = y;
     }
 
