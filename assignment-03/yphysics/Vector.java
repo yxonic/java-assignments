@@ -29,4 +29,5 @@ public interface Vector {
     double distance(Vector v);
     double dot(Vector v);
     String toString();
+    double[] toDouble();
 }

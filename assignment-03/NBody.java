@@ -32,7 +32,7 @@ public class NBody {
     static class Listener implements ParticleSystemListener {
         public void onUpdate() {
             System.out.println("Hit!");
-            System.out.println(pt2.getPosition().x);
+            System.out.println(pt2.getPosition().toDouble()[0]);
         }
     }
 

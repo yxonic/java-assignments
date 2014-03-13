@@ -109,4 +109,13 @@ public class Vector2D implements Vector {
     public String toString() {
         return ((Double)x).toString() + ',' + y;
     }
+
+    /**
+     * @return The coodinates packed in an array.
+     */
+    public double[] toDouble() {
+        double[] ans = new double[2];
+        ans[0] = x; ans[1] = y;
+        return ans;
+    }
 }
