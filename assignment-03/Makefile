@@ -6,3 +6,5 @@ NBody.class: NBody.java
 clean:
 	rm -f *.class
 	rm -f *~
+	rm -f yphysics/*.class
+	rm -f yphysics/*~
