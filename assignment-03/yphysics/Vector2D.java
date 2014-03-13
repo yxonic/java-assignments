@@ -22,19 +22,29 @@ package yphysics;
 /**
  * A simple 2-dimentional vector, with some common operations.
  */
-class Vector2D extends Vector {
+public class Vector2D implements Vector {
 
     // two coordinates
-    double x = 0.0, y = 0.0;
+    private double x = 0.0, y = 0.0;
     
     /**
-     * Create a null vector
+     * Create a null vector.
      */
-    Vector2D() {
+    public Vector2D() {
     }
     
-    Vector2D(double x, double y) {
-        this.x = x; this.y = y;
+    /**
+     * Create a vector with given coodinates.
+     */
+    public Vector2D(double... x) {
+        this.x = x[0]; this.y = x[1];
+    }
+
+    /**
+     * @return A null Vector2D.
+     */
+    public Vector2D nullVector() {
+        return new Vector2D();
     }
 
     /**
@@ -44,34 +54,29 @@ class Vector2D extends Vector {
         return Math.sqrt(x * x + y * y);
     }
 
-    public void copy(Vector2D v) {
-        x = v.x; y = v.y;
-    }
-
     /**
      * Compare two vectors.
      * @return True if two vectors identify.
      */
-    public boolean equals(Vector2D v) {
+    public boolean equals(Vector vec) {
+        Vector2D v = (Vector2D) vec;
         return x == v.x && y == v.y;
     }
 
     /**
-     * Add a vectors to itself.
+     * Add up two vectors.
      */
-    public Vector2D add(Vector2D v) {
-        x += v.x;
-        y += v.y;
-        return this;
+    public Vector2D add(Vector vec) {
+        Vector2D v = (Vector2D) vec;
+        return new Vector2D(x + v.x, y + v.y);
     }
 
     /**
-     * Substract by a vector.
+     * Substract two vectors.
      */
-    public Vector2D substract(Vector2D v) {
-        x -= v.x;
-        y -= v.y;
-        return this;
+    public Vector2D substract(Vector vec) {
+        Vector2D v = (Vector2D) vec;
+        return new Vector2D(x - v.x, y - v.y);
     }
 
     /**
@@ -81,44 +86,27 @@ class Vector2D extends Vector {
         return new Vector2D(x * k, y * k);
     }
 
-    public static Vector2D nullVector() {
-        return new Vector2D();
-    }
-
     /**
-     * Add two vectors.
+     * Calculate the Eculidian distance.
+     * @return The distance.
      */
-    static Vector2D add(Vector2D v1, Vector2D v2) {
-        return new Vector2D(v1.x + v2.x, v1.y + v2.y);
-    }
-
-    /**
-     * Substract two vectors.
-     */
-    static Vector2D substract(Vector2D v1, Vector2D v2) {
-        return new Vector2D(v1.x - v2.x, v1.y - v2.y);
-    }
-
-    /**
-     * A vector times a real number.
-     */
-    static Vector2D times(Vector2D v, double k) {
-        return new Vector2D(v.x * k, v.y * k);
+    public double distance(Vector vec) {
+        Vector2D v = (Vector2D) vec;
+        return substract(v).length();
     }
 
     /**
      * @return The dot product of two vectors.
      */
-    static double dot(Vector2D v1, Vector2D v2) {
-        return v1.x * v2.x - v1.y * v2.y;
+    public double dot(Vector vec) {
+        Vector2D v = (Vector2D) vec;
+        return x * v.x + y * v.y;
     }
 
     /**
-     * Calculate the Eculidian distance.
-     * @return The distance.
+     * @return The value with a format like 'x,y'
      */
-    static double distance(Vector2D v1, Vector2D v2) {
-        return substract(v1, v2).length();
+    public String toString() {
+        return ((Double)x).toString() + ',' + y;
     }
-
 }

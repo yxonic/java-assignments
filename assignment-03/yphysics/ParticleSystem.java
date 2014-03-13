@@ -47,7 +47,7 @@ public class ParticleSystem {
         while (time < T) {
             for (String obj : objects.keySet())
                 for (String i : objects.keySet())
-                    if (i != obj) {
+                    if (!i.equals(obj)) {
                         Particle p1 = objects.get(obj);
                         Particle p2 = objects.get(i);
                         p1.addForce(Particle.gravity(p1, p2));

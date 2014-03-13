@@ -25,21 +25,22 @@ package yphysics;
 public class Particle {
 
     // constant G under MKS
-    static final double G = 9.80665;
+    static final double G = 6.67428e-11;
 
     Vector position, velocity, acceleration;
     double mass;
     String name;
 
-    public Particle(Vector r, Vector v, String n) {
+    public Particle(Vector r, Vector v, double m, String n) {
         position = r;
         velocity = v;
-        acceleration = Vector.nullVector();
+        acceleration = v.nullVector();
+        mass = m;
         name = n;
     }
 
     /**
-     * @return Vectorhe unique name of this particle.
+     * @return The unique name of this particle.
      */
     public String getId() {
         return name;
@@ -49,16 +50,14 @@ public class Particle {
      * Get the current position.
      */
     public Vector getPosition() {
-        Vector pos = Vector.nullVector();
-        pos.copy(position);
-        return pos;
+        return position;
     }
     
     /**
      * Add a force and calculate the acceleration.
      */
     void addForce(Vector f) {
-        acceleration.add(Vector.times(f, 1 / mass));
+        acceleration = acceleration.add(f);
     }
 
     /**
@@ -66,21 +65,24 @@ public class Particle {
      */
     void advance(double dt) {
         // calculate next position and velocity
-        position.add(Vector.times(velocity, dt));
-        velocity.add(Vector.times(acceleration, dt));
+        position = position.add(velocity.times(dt)).
+            add(acceleration.times(dt * dt));
+        velocity = velocity.add(acceleration.times(dt));
 
         // clear acceleration for next calculation
         acceleration = acceleration.nullVector();
     }
 
     /**
-     * Calculates the gravity between two particles.
+     * Calculates the gravity acceleration between two particles.
      * @return A vector that points to the second given paritcle.
      */
-    public static Vector gravity(Particle a, Particle b) {
-        double d = Vector.distance(a.position, b.position);
-        double force = G * a.mass * b.mass / d;
-        Vector dir = Vector.substract(b.getPosition(), a.getPosition());
+    static Vector gravity(Particle a, Particle b) {
+        double d = a.position.distance(b.position);
+        // if two objects are enough close, then see them as a whole
+        if (d < 1e-10) return a.acceleration.nullVector();
+        double force = G * b.mass / d / d;
+        Vector dir = b.getPosition().substract(a.getPosition());
         return dir.times(force / d);
     }
 }
