@@ -20,8 +20,24 @@
 package yphysics;
 
 public interface ParticleSystemListener {
+
+    /**
+     * Called when system starts.
+     */
     void onStart();
+
+    /**
+     * Called each time the system updates as user specifies.
+     */
     void onUpdate();
+
+    /**
+     * Called each time the system produces a new state.
+     */
     void onQuickUpdate();
+
+    /**
+     * Called when the simulation stops.
+     */
     void onFinish();
 }

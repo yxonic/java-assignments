@@ -36,15 +36,26 @@ public class ParticleSystem {
     List<ParticleSystemListener> listeners =
         new ArrayList<ParticleSystemListener>();
 
+    /**
+     * Add a particle to the system before the system starts.
+     * @param The particle to add to this system.
+     */
     public void addParticle(Particle p) {
         objects.put(p.getId(), p);
     }
 
+    /**
+     * @return A list of all present particles.
+     */
     public List<Particle> getAllParticles() {
         List<Particle> list = new ArrayList<Particle>(objects.values());
         return Collections.unmodifiableList(list);
     }
 
+    /**
+     * @param T for total time and dt for step. After each step,
+     * onQuickUpdate() of listeners would be called.
+     */
     void advance(double T, double dt) {
         double time = 0.0;
         while (time < T) {
@@ -63,7 +74,12 @@ public class ParticleSystem {
         }
     }
 
+    /**
+     * Start the system.
+     * @param T for update step. maxT for simulation time.
+     */
     public void loop(double T, double maxT) {
+        // use T as step is too rough. use dt instead.
         double time = 0.0, dt = T / factor;
         for (ParticleSystemListener listener : listeners)
             listener.onStart();
@@ -77,18 +93,14 @@ public class ParticleSystem {
             listener.onFinish();
     }
 
+    /**
+     * Add a listener to the system.
+     */
     public void addListener(ParticleSystemListener listener) {
         if (listener == null) {
             throw new IllegalArgumentException("listener is required");
         }
         listeners.add(listener);
-    }
-
-    public void removeListener(ParticleSystemListener listener) {
-        if (listener == null) {
-            throw new IllegalArgumentException("listener is required");
-        }
-        listeners.remove(listeners.indexOf(listener));
     }
 
 }
