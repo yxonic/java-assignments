@@ -30,7 +30,7 @@ import java.util.Map;
  */
 public class ParticleSystem {
     // set precision factor
-    private double factor = 50000.0;
+    private final double factor = 1500.0;
 
     Map<String, Particle> objects = new HashMap<String, Particle>();
     List<ParticleSystemListener> listeners =
@@ -57,6 +57,8 @@ public class ParticleSystem {
                     }
             for (Map.Entry<String, Particle>entry : objects.entrySet())
                 entry.getValue().advance(dt);
+            for (ParticleSystemListener listener : listeners)
+                listener.onQuickUpdate();
             time += dt;
         }
     }
@@ -64,13 +66,15 @@ public class ParticleSystem {
     public void loop(double T, double maxT) {
         double time = 0.0, dt = T / factor;
         for (ParticleSystemListener listener : listeners)
-            listener.onUpdate();
+            listener.onStart();
         while (time < maxT) {
             time += T;
             advance(T, dt); 
             for (ParticleSystemListener listener : listeners)
                 listener.onUpdate();
         }
+        for (ParticleSystemListener listener : listeners)
+            listener.onFinish();
     }
 
     public void addListener(ParticleSystemListener listener) {

@@ -30,12 +30,21 @@ class DrawUniverse {
     }
     
     public void start() {
-        //StdDraw.setXscale(-R, R);
-        //StdDraw.setYscale(-R, R);
+        StdAudio.play("nbody/2001.mid");
+        StdDraw.setXscale(-R, R);
+        StdDraw.setYscale(-R, R);
         ParticleSystemListener l = new ParticleSystemListener() {
-                public void onUpdate() {
-                    draw();
-                    log();
+                private int skip = 0;
+                private final int step = 500;
+                public void onStart() {}
+                public void onUpdate() { /*draw();*/ }
+                public void onFinish() { log(); }
+                public void onQuickUpdate() {
+                    skip++;
+                    if (skip == step) {
+                        skip = 0;
+                        draw(); 
+                    }
                 }
             };
         universe.addListener(l);
@@ -43,14 +52,23 @@ class DrawUniverse {
     }
 
     void draw() {
-        //StdDraw.show(30);
+        List<Particle> list = universe.getAllParticles();
+        StdDraw.picture(0, 0, "nbody/starfield.jpg");
+        for (Particle p : list) {
+            Vector2D v = (Vector2D)p.getPosition();
+            double[] pos = v.toDouble();
+            StdDraw.filledCircle(pos[0], pos[1], 5e9);
+            StdDraw.picture(pos[0], pos[1], "nbody/" + p.getId() + ".gif");
+        }
+        StdDraw.show(10);
     }
 
     void log() {
         List<Particle> list = universe.getAllParticles();
         for (Particle p : list) {
             Vector2D v = (Vector2D)p.getPosition();
-            System.out.println(v);
+            double[] pos = v.toDouble();
+            System.out.println(p.getId() + ":\t" + pos[0] + "\t" + pos[1]);
         }
     }
 

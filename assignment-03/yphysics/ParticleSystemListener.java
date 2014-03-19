@@ -20,5 +20,8 @@
 package yphysics;
 
 public interface ParticleSystemListener {
+    void onStart();
     void onUpdate();
+    void onQuickUpdate();
+    void onFinish();
 }
