@@ -1,7 +1,7 @@
 all: NBody.class
 
 NBody.class: NBody.java
-	javac NBody.java
+	javac -cp .:stdlib.jar NBody.java
 
 clean:
 	rm -f *.class

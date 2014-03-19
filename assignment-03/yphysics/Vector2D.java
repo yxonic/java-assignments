@@ -107,7 +107,7 @@ public class Vector2D implements Vector {
      * @return The value with a format like 'x,y'
      */
     public String toString() {
-        return ((Double)x).toString() + ',' + y;
+        return "" + x + ',' + y;
     }
 
     /**

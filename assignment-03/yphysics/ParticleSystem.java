@@ -29,6 +29,9 @@ import java.util.Map;
  * Particle system simulation.
  */
 public class ParticleSystem {
+    // set precision factor
+    private double factor = 50000.0;
+
     Map<String, Particle> objects = new HashMap<String, Particle>();
     List<ParticleSystemListener> listeners =
         new ArrayList<ParticleSystemListener>();
@@ -58,8 +61,12 @@ public class ParticleSystem {
         }
     }
 
-    public void loop(double T, double dt) {
-        while (true) {
+    public void loop(double T, double maxT) {
+        double time = 0.0, dt = T / factor;
+        for (ParticleSystemListener listener : listeners)
+            listener.onUpdate();
+        while (time < maxT) {
+            time += T;
             advance(T, dt); 
             for (ParticleSystemListener listener : listeners)
                 listener.onUpdate();

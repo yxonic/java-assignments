@@ -18,30 +18,70 @@
  */
 
 import yphysics.*;
+import java.util.List;
 
+class DrawUniverse {
+    ParticleSystem universe = new ParticleSystem();
+    double R, T, dt;
 
-public class NBody {
-    static Vector2D p = new Vector2D();
-    static Vector2D v = new Vector2D();
-    static Vector2D p2 = new Vector2D(1.5e11, 0.0);
-    static Vector2D v2 = new Vector2D(0.0, 3e4);
-    static Particle pt = new Particle(p, v, 2e30, "pt1");
-    static Particle pt2 = new Particle(p2, v2, 6e24, "pt2");
-    static ParticleSystem ps = new ParticleSystem();
+    public DrawUniverse(double scale, double time, double dt) {
+        R = scale; T = time;
+        this.dt = dt;
+    }
+    
+    public void start() {
+        //StdDraw.setXscale(-R, R);
+        //StdDraw.setYscale(-R, R);
+        ParticleSystemListener l = new ParticleSystemListener() {
+                public void onUpdate() {
+                    draw();
+                    log();
+                }
+            };
+        universe.addListener(l);
+        universe.loop(dt, T);
+    }
 
-    static class Listener implements ParticleSystemListener {
-        public void onUpdate() {
-            System.out.println("Hit!");
-            System.out.println(pt2.getPosition().toDouble()[0]);
+    void draw() {
+        //StdDraw.show(30);
+    }
+
+    void log() {
+        List<Particle> list = universe.getAllParticles();
+        for (Particle p : list) {
+            Vector2D v = (Vector2D)p.getPosition();
+            System.out.println(v);
         }
     }
 
+}
 
+public class NBody {
     public static void main(String[] args) {
-        ps.addParticle(pt);
-        ps.addParticle(pt2);
-        Listener ls = new Listener();
-        ps.addListener(ls);
-        ps.loop(157788000000.0, 100000);
+        double T, dt;
+        T = Double.parseDouble(args[0]);
+        dt = Double.parseDouble(args[1]);
+        
+        int N = StdIn.readInt();
+        double R = StdIn.readDouble();
+        
+        DrawUniverse U = new DrawUniverse(R, T, dt);
+        
+        for (int i = 0; i < N; i++) {
+            double x = StdIn.readDouble();
+            double y = StdIn.readDouble();
+            double vx = StdIn.readDouble();
+            double vy = StdIn.readDouble();
+            Vector2D r = new Vector2D(x, y);
+            Vector2D v = new Vector2D(vx, vy);
+            
+            double mass = StdIn.readDouble();
+
+            String name = StdIn.readString().split("\\.")[0];
+
+            Particle p = new Particle(r, v, mass, name);
+            U.universe.addParticle(p);
+        }
+        U.start();
     }
 }
