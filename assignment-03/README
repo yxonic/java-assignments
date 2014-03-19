@@ -1,0 +1,18 @@
+NAME:           阴钰<yxonic@gmail.com>
+ID:             PB13011038
+OS:             GNU/Linux
+TEXT EDITOR:    Emacs
+
+本次作业中实现了一个简单的粒子系统模拟库yphysics. 
+
+实现作业的要求本来不必这么复杂，简单的版本可能一个小时就写好了，但为了
+提升Java水平，我花时间实现了一个相对比较复杂的库. 对于设计模式还有很多
+要学习的地方，希望助教给一些意见和建议.
+
+库程序代码中包含javadoc风格的注释，NBody.java则可以作为使用yphysics库的
+一个demo. 更详细的文档已经没有精力写了.
+
+程序所需文件均假设在nbody目录. 可以修改DrawUniverse类中的src变量来改动.
+
+类库的设计很大程度上参考了Facebook的Rebound库
+<https://github.com/facebook/rebound/>. 在此声明.

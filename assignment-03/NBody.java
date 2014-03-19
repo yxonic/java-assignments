@@ -23,6 +23,8 @@ import java.util.List;
 class DrawUniverse {
     ParticleSystem universe = new ParticleSystem();
     double R, T, dt;
+    // directory of source files
+    final String src = "nbody/";
 
     public DrawUniverse(double scale, double time, double dt) {
         R = scale; T = time;
@@ -30,7 +32,7 @@ class DrawUniverse {
     }
     
     public void start() {
-        StdAudio.play("nbody/2001.mid");
+        StdAudio.play(src + "2001.mid");
         StdDraw.setXscale(-R, R);
         StdDraw.setYscale(-R, R);
         ParticleSystemListener l = new ParticleSystemListener() {
@@ -53,12 +55,12 @@ class DrawUniverse {
 
     void draw() {
         List<Particle> list = universe.getAllParticles();
-        StdDraw.picture(0, 0, "nbody/starfield.jpg");
+        StdDraw.picture(0, 0, src + "starfield.jpg");
         for (Particle p : list) {
             Vector2D v = (Vector2D)p.getPosition();
             double[] pos = v.toDouble();
             StdDraw.filledCircle(pos[0], pos[1], 5e9);
-            StdDraw.picture(pos[0], pos[1], "nbody/" + p.getId() + ".gif");
+            StdDraw.picture(pos[0], pos[1], src + p.getId() + ".gif");
         }
         StdDraw.show(10);
     }
