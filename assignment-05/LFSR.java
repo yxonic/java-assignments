@@ -5,7 +5,7 @@ public class LFSR {
 
     public LFSR(String seed, int tap) {
         value = seed.getBytes();
-        N = seed.length;
+        N = seed.length();
         this.tap = tap;
     }
 
