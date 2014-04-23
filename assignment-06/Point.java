@@ -1,6 +1,6 @@
 public class Point {
     double x, y;
-    double r = 0.05;
+    double r = 1;
 
     public Point() {
         this.x = this.y = 0;
@@ -23,6 +23,7 @@ public class Point {
     }
 
     public double distanceTo(Point that) {
+        if (that == null) return 0;
         return Math.sqrt((x - that.x) * (x - that.x) +
                          (y - that.y) * (y - that.y));
     }
