@@ -1,8 +1,13 @@
-all: Snake.class
+DIR=org/yxonic/snake
 
-Snake.class: Snake.java
-	javac Snake.java
+all: $(DIR)/Snake.class
+
+$(DIR)/Snake.class: $(DIR)/Play.java $(DIR)/Snake.java $(DIR)/Board.java $(DIR)/Maps.java
+	javac $(DIR)/Play.java
+
+run: all
+	java org.yxonic.snake.Play
 
 clean:
-	rm -f *.class
-	rm -f *~
+	rm -f $(DIR)/*.class
+	rm -f $(DIR)/*~
